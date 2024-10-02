@@ -54,7 +54,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/yourrepository:latest
+            DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/project2:latest
             echo "Pulling latest Docker image..."
             docker pull $DOCKER_IMAGE
 
