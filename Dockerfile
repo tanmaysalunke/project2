@@ -1,20 +1,20 @@
-# Use the official Node.js 14 image as a base
+# Use a base image
 FROM node:14
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or yarn.lock) to leverage Docker layer caching
+# Copy package.json and package-lock.json first to leverage Docker caching
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application code into the container
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Expose the port the app runs on (e.g., 80 or 3000 depending on your app)
+EXPOSE 80
 
-# Command to run the application
+# Set the command to run your application
 CMD ["node", "server.js"]
