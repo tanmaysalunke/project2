@@ -13,32 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Create .ssh directory
-        run: |
-          mkdir -p $HOME/.ssh
-          chmod 700 $HOME/.ssh
-
-      - name: Decode SSH Key
-        env:
-          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-        run: |
-          echo -n "$EC2_SSH_KEY" | base64 --decode > $HOME/.ssh/id_rsa
-          chmod 600 $HOME/.ssh/id_rsa
-
-      - name: Check decoded SSH Key
-        run: cat $HOME/.ssh/id_rsa # For debugging; remove this in production
-
-      - name: Verify permissions
-        run: ls -l $HOME/.ssh/id_rsa
+        uses: actions/checkout@v3
 
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
-          key: $HOME/.ssh/id_rsa
+          key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/yourrepository:latest
