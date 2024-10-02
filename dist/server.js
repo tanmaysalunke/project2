@@ -7,11 +7,12 @@ const express_1 = __importDefault(require("express"));
 const multer_1 = __importDefault(require("multer"));
 const fs_1 = __importDefault(require("fs"));
 const csv_parser_1 = __importDefault(require("csv-parser"));
+const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 const port = 3000;
 const upload = (0, multer_1.default)({ dest: 'uploads/' });
 const classificationResults = {};
-fs_1.default.createReadStream('./data/Classification Results on Face Dataset (1000 images).csv')
+fs_1.default.createReadStream(path_1.default.join(__dirname, '../Classification Results on Face Dataset (1000 images).csv'))
     .pipe((0, csv_parser_1.default)())
     .on('data', (data) => {
     classificationResults[data.Image] = data.Results;
