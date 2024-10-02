@@ -17,4 +17,5 @@ COPY . .
 EXPOSE 80
 
 # Set the command to run your application
-CMD ["node", "server.js"]
+CMD ["node", "dist/server.js"]
+
