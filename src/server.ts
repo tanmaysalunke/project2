@@ -16,7 +16,7 @@ const upload = multer({ dest: 'uploads/' });
 
 const classificationResults: Record<string, string> = {};
 
-fs.createReadStream('./data/Classification Results on Face Dataset (1000 images).csv')
+fs.createReadStream(path.join(__dirname, './data/Classification Results on Face Dataset (1000 images).csv'))
     .pipe(csv())
     .on('data', (data) => {
         classificationResults[data.Image] = data.Results;
