@@ -32,6 +32,11 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/yourrepository:latest
 
+      - name: Create .ssh directory
+        run: |
+          mkdir -p $HOME/.ssh
+          chmod 700 $HOME/.ssh
+
       - name: Decode SSH Key
         env:
           EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
