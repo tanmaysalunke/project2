@@ -4,20 +4,18 @@ FROM node:14
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json first to leverage Docker caching
+# Copy package.json and install dependencies
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application code into the container
+# Copy the rest of the application source code, including the data folder
 COPY . .
 
-# Expose the port the app runs on (e.g., 80 or 3000 depending on your app)
-EXPOSE 80
-
+# Ensure the data folder is copied to the container
 COPY data ./data
 
-# Set the command to run your application
-CMD ["node", "dist/server.js"]
+# Expose the port the app runs on
+EXPOSE 3000
 
+# Run the server
+CMD ["node", "dist/server.js"]
